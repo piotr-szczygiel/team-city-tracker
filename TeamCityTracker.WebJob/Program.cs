@@ -1,8 +1,16 @@
-﻿namespace TeamCityTracker.WebJob
-{
-    // To learn more about Microsoft Azure WebJobs SDK, please see https://go.microsoft.com/fwlink/?LinkID=320976
-    public class Program
-    {
+﻿
+using Autofac;
+using TeamCityTracker.WebJob.ApiReader;
 
+namespace TeamCityTracker.WebJob
+{
+    internal class Program
+    {
+        public static void Main()
+        {
+            Bootstraper.Bootstrap();
+            var apiReader = Bootstraper.Container.Resolve<IApiReader>();
+            var builds = apiReader.GetBuilds();
+        }
     }
 }
