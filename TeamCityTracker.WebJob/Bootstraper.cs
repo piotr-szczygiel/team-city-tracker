@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using TeamCityTracker.WebJob.ApiReader.AuthorizationProvider;
 
 namespace TeamCityTracker.WebJob
 {
@@ -11,6 +12,7 @@ namespace TeamCityTracker.WebJob
             var builder = new ContainerBuilder();
 
             builder.RegisterType<ApiReader.ApiReader>().AsImplementedInterfaces();
+            builder.RegisterType<AuthorizationProvider>().AsImplementedInterfaces();
 
             Bootstraper.Container = builder.Build();
         }
