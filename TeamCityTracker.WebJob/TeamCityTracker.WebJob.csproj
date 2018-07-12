@@ -87,6 +87,10 @@
     <Compile Include="ApiReader\AuthorizationProvider\IAuthorizationProvider.cs" />
     <Compile Include="ApiReader\IApiReader.cs" />
     <Compile Include="Bootstraper.cs" />
+    <Compile Include="ElasticSearch\ClientBuilder.cs" />
+    <Compile Include="ElasticSearch\DataLoader.cs" />
+    <Compile Include="ElasticSearch\IClientBuilder.cs" />
+    <Compile Include="ElasticSearch\IDataLoader.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\BuildsResponse.cs" />
     <Compile Include="Program.cs" />

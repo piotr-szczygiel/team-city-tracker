@@ -20,7 +20,7 @@ namespace TeamCityTracker.WebJob.ApiReader
             var appSettings = new AppSettingsReader();
             var url = appSettings.GetValue("TeamCity.RestApi.Url", typeof(string));
 
-            this.Uri = $"http://{url}/app/rest";
+            this.Uri = $"{url}/app/rest";
         }
 
         public async Task<BuildsResponse> GetBuilds()
