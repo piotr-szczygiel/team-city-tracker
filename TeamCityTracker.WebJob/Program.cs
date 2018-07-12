@@ -16,6 +16,8 @@ namespace TeamCityTracker.WebJob
             Bootstraper.Bootstrap();
             var apiReader = Bootstraper.Container.Resolve<IApiReader>();
             var builds = await apiReader.GetBuilds().ConfigureAwait(false);
+
+
         }
     }
 }
