@@ -1,34 +1,33 @@
-﻿using System.Configuration;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using TeamCityTracker.Common.Credentials;
+using TeamCityTracker.Common.Model;
+using TeamCityTracker.WebJob.HttpClientBuilder;
 
 namespace TeamCityTracker.WebJob.ApiReader
 {
     public class ApiReader : IApiReader
     {
+        private readonly HttpClient client;
+
         public string Uri { get; set; }
 
-        private const int NumberOfItems = 300;
-
-        public ApiReader()
+        public ApiReader(IHttpClientBuilder clientBuilder, ITeamCityCredentials teamCityCredentials)
         {
-            var appSettings = new AppSettingsReader();
-            var url = appSettings.GetValue("TeamCity.RestApi.Url", typeof(string));
-            var username = appSettings.GetValue("TeamCity.RestApi.Username", typeof(string));
-            var password = appSettings.GetValue("TeamCity.RestApi.Password", typeof(string));
-
-            this.Uri = $"https://{username}:{password}@{url}";
+            this.client = clientBuilder.GetClient();
+            this.Uri = $"{teamCityCredentials.TeamCityApiUrl}/app/rest";
         }
 
-        public async Task<string> GetBuilds()
+        public async Task<BuildsResponse> GetBuilds()
         {
-            using (var client = new HttpClient())
-            using (var response = await client.GetAsync(this.Uri).ConfigureAwait(false))
-            using (var content = response.Content)
-            {
-                var result = await content.ReadAsStringAsync();
-                return result;
-            }
+            var response = await this.client.GetAsync($"{this.Uri}/builds?locator=count:50").ConfigureAwait(false);
+            var content = response.Content;
+
+            var result = await content.ReadAsStringAsync().ConfigureAwait(false);
+            var jsonResponse = JsonConvert.DeserializeObject<BuildsResponse>(result);
+
+            return jsonResponse;
         }
     }
 }
