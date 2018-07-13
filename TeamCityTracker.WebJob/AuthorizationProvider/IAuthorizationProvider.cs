@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Headers;
 
-namespace TeamCityTracker.WebJob.ApiReader.AuthorizationProvider
+namespace TeamCityTracker.WebJob.AuthorizationProvider
 {
     public interface IAuthorizationProvider
     {

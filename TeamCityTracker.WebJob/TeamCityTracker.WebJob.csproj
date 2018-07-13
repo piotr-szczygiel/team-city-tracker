@@ -83,16 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiReader\ApiReader.cs" />
-    <Compile Include="ApiReader\AuthorizationProvider\AuthorizationProvider.cs" />
-    <Compile Include="ApiReader\AuthorizationProvider\IAuthorizationProvider.cs" />
+    <Compile Include="AuthorizationProvider\AuthorizationProvider.cs" />
+    <Compile Include="AuthorizationProvider\IAuthorizationProvider.cs" />
+    <Compile Include="HttpClientBuilder\HttpClientBuilder.cs" />
+    <Compile Include="HttpClientBuilder\IHttpClientBuilder.cs" />
     <Compile Include="ApiReader\IApiReader.cs" />
     <Compile Include="Bootstraper.cs" />
-    <Compile Include="ElasticSearch\ClientBuilder.cs" />
-    <Compile Include="ElasticSearch\DataLoader.cs" />
-    <Compile Include="ElasticSearch\IClientBuilder.cs" />
-    <Compile Include="ElasticSearch\IDataLoader.cs" />
-    <Compile Include="Model\Build.cs" />
-    <Compile Include="Model\BuildsResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +99,13 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TeamCityTracker.Common\TeamCityTracker.Common.csproj">
+      <Project>{a6e18cc8-bdbc-485c-9f63-b7356fae0305}</Project>
+      <Name>TeamCityTracker.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

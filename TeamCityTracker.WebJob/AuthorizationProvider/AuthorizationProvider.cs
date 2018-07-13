@@ -3,18 +3,17 @@ using System.Configuration;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace TeamCityTracker.WebJob.ApiReader.AuthorizationProvider
+namespace TeamCityTracker.WebJob.AuthorizationProvider
 {
     public class AuthorizationProvider : IAuthorizationProvider
     {
         private readonly string username;
         private readonly string password;
 
-        public AuthorizationProvider()
+        public AuthorizationProvider(AppSettingsReader appSettingsReader)
         {
-            var appSettings = new AppSettingsReader();
-            this.username = (string)appSettings.GetValue("TeamCity.RestApi.Username", typeof(string));
-            this.password = (string)appSettings.GetValue("TeamCity.RestApi.Password", typeof(string));
+            this.username = (string) appSettingsReader.GetValue("TeamCity.RestApi.Username", typeof(string));
+            this.password = (string) appSettingsReader.GetValue("TeamCity.RestApi.Password", typeof(string));
 
         }
         public AuthenticationHeaderValue GetAuthenticationHeader()

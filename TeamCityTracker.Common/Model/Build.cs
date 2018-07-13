@@ -1,6 +1,6 @@
 ﻿using Nest;
 
-namespace TeamCityTracker.WebJob.Model
+namespace TeamCityTracker.Common.Model
 {
     [ElasticsearchType(Name = "build")]
     public class Build
@@ -8,7 +8,7 @@ namespace TeamCityTracker.WebJob.Model
         [Number(Name = "id")]
         public int Id { get; set; }
 
-        [Text(Name = "build_type_id")]
+        [Keyword(Name = "build_type_id")]
         public string BuildTypeId { get; set; }
 
         [Text(Name = "number")]

@@ -1,6 +1,7 @@
-﻿using Autofac;
-using TeamCityTracker.WebJob.ApiReader.AuthorizationProvider;
-using TeamCityTracker.WebJob.ElasticSearch;
+﻿using System.Configuration;
+using System.Net.Http;
+using Autofac;
+using TeamCityTracker.Common;
 
 namespace TeamCityTracker.WebJob
 {
@@ -12,10 +13,13 @@ namespace TeamCityTracker.WebJob
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterModule<CommonModule>();
+
+            builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterType<ApiReader.ApiReader>().AsImplementedInterfaces();
-            builder.RegisterType<AuthorizationProvider>().AsImplementedInterfaces();
-            builder.RegisterType<ClientBuilder>().AsImplementedInterfaces();
-            builder.RegisterType<DataLoader>().AsImplementedInterfaces();
+            builder.RegisterType<AuthorizationProvider.AuthorizationProvider>().AsImplementedInterfaces();
+            builder.RegisterType<HttpClientBuilder.HttpClientBuilder>().AsImplementedInterfaces();
+            builder.RegisterType<AppSettingsReader>().AsSelf();
 
             Bootstraper.Container = builder.Build();
         }

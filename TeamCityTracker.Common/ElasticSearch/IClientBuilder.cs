@@ -1,6 +1,6 @@
 ﻿using Nest;
 
-namespace TeamCityTracker.WebJob.ElasticSearch
+namespace TeamCityTracker.Common.ElasticSearch
 {
     public interface IClientBuilder
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Autofac;
+using TeamCityTracker.Common.ElasticSearch;
 using TeamCityTracker.WebJob.ApiReader;
-using TeamCityTracker.WebJob.ElasticSearch;
 
 namespace TeamCityTracker.WebJob
 {
@@ -23,6 +23,7 @@ namespace TeamCityTracker.WebJob
             await dataLoader.Load(builds.Build).ConfigureAwait(false);
 
             Console.WriteLine("Data loaded.");
+            Console.ReadLine();
         }
     }
 }

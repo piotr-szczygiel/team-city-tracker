@@ -1,43 +1,35 @@
 ﻿using System.Configuration;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using TeamCityTracker.WebJob.ApiReader.AuthorizationProvider;
-using TeamCityTracker.WebJob.Model;
+using TeamCityTracker.Common.Model;
+using TeamCityTracker.WebJob.HttpClientBuilder;
 
 namespace TeamCityTracker.WebJob.ApiReader
 {
     public class ApiReader : IApiReader
     {
-        private readonly IAuthorizationProvider authorizationProvider;
+        private readonly HttpClient client;
 
         public string Uri { get; set; }
 
-        public ApiReader(IAuthorizationProvider authorizationProvider)
+        public ApiReader(IHttpClientBuilder clientBuilder, AppSettingsReader appSettingsReader)
         {
-            this.authorizationProvider = authorizationProvider;
-            var appSettings = new AppSettingsReader();
-            var url = appSettings.GetValue("TeamCity.RestApi.Url", typeof(string));
+            this.client = clientBuilder.GetClient();
 
+            var url = appSettingsReader.GetValue("TeamCity.RestApi.Url", typeof(string));
             this.Uri = $"{url}/app/rest";
         }
 
         public async Task<BuildsResponse> GetBuilds()
         {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = this.authorizationProvider.GetAuthenticationHeader();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = await this.client.GetAsync($"{this.Uri}/builds?locator=count:50").ConfigureAwait(false);
+            var content = response.Content;
 
-                var response = await client.GetAsync($"{this.Uri}/builds").ConfigureAwait(false);
-                var content = response.Content;
+            var result = await content.ReadAsStringAsync().ConfigureAwait(false);
+            var jsonResponse = JsonConvert.DeserializeObject<BuildsResponse>(result);
 
-                var result = await content.ReadAsStringAsync().ConfigureAwait(false);
-                var jsonResponse = JsonConvert.DeserializeObject<BuildsResponse>(result);
-
-                return jsonResponse;
-            }
+            return jsonResponse;
         }
     }
 }
