@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Configuration;
 using Nest;
+using TeamCityTracker.Common.Credentials;
 using TeamCityTracker.Common.Model;
 
 namespace TeamCityTracker.Common.ElasticSearch
 {
     public class ClientBuilder : IClientBuilder
     {
-        private readonly AppSettingsReader appSettingsReader;
+        private readonly IElasticSearchCredentials credentials;
 
-        public ClientBuilder(AppSettingsReader appSettingsReader)
+        public ClientBuilder(IElasticSearchCredentials credentials)
         {
-            this.appSettingsReader = appSettingsReader;
+            this.credentials = credentials;
         }
 
         public ElasticClient GetClient()
@@ -24,14 +24,10 @@ namespace TeamCityTracker.Common.ElasticSearch
 
         private ConnectionSettings CreateDefaulConnectionSettings()
         {
-            var uri = new Uri((string) this.appSettingsReader.GetValue("ElasticSearch.Cluster.Url", typeof(string)));
+            var uri = new Uri(this.credentials.ElasticSearchUrl);
             var connectionSettings = new ConnectionSettings(uri);
 
-            connectionSettings.BasicAuthentication(
-                (string) this.appSettingsReader.GetValue("ElasticSearch.Username", typeof(string)),
-                (string) this.appSettingsReader.GetValue("ElasticSearch.Password", typeof(string))
-            );
-
+            connectionSettings.BasicAuthentication(this.credentials.ElasticSearchUsername, this.credentials.ElasticSearchPassword);
             connectionSettings.DefaultMappingFor<Build>(m => m.IndexName("build"));
 
             return connectionSettings;

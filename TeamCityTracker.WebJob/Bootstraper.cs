@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Autofac;
 using TeamCityTracker.Common;
 
@@ -13,13 +12,15 @@ namespace TeamCityTracker.WebJob
         {
             var builder = new ContainerBuilder();
 
+            // register modules
             builder.RegisterModule<CommonModule>();
 
+            // register domain related types
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterType<ApiReader.ApiReader>().AsImplementedInterfaces();
             builder.RegisterType<AuthorizationProvider.AuthorizationProvider>().AsImplementedInterfaces();
             builder.RegisterType<HttpClientBuilder.HttpClientBuilder>().AsImplementedInterfaces();
-            builder.RegisterType<AppSettingsReader>().AsSelf();
+            builder.RegisterType<AppSettings>().AsImplementedInterfaces();
 
             Bootstraper.Container = builder.Build();
         }

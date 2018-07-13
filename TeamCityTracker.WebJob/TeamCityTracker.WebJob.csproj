@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiReader\ApiReader.cs" />
+    <Compile Include="AppSettings.cs" />
     <Compile Include="AuthorizationProvider\AuthorizationProvider.cs" />
     <Compile Include="AuthorizationProvider\IAuthorizationProvider.cs" />
     <Compile Include="HttpClientBuilder\HttpClientBuilder.cs" />

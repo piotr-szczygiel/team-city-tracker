@@ -1,7 +1,7 @@
-﻿using System.Configuration;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TeamCityTracker.Common.Credentials;
 using TeamCityTracker.Common.Model;
 using TeamCityTracker.WebJob.HttpClientBuilder;
 
@@ -13,12 +13,10 @@ namespace TeamCityTracker.WebJob.ApiReader
 
         public string Uri { get; set; }
 
-        public ApiReader(IHttpClientBuilder clientBuilder, AppSettingsReader appSettingsReader)
+        public ApiReader(IHttpClientBuilder clientBuilder, ITeamCityCredentials teamCityCredentials)
         {
             this.client = clientBuilder.GetClient();
-
-            var url = appSettingsReader.GetValue("TeamCity.RestApi.Url", typeof(string));
-            this.Uri = $"{url}/app/rest";
+            this.Uri = $"{teamCityCredentials.TeamCityApiUrl}/app/rest";
         }
 
         public async Task<BuildsResponse> GetBuilds()

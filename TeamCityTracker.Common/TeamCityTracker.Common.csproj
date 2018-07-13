@@ -50,12 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonModule.cs" />
+    <Compile Include="Credentials\ITeamCityCredentials.cs" />
     <Compile Include="ElasticSearch\ClientBuilder.cs" />
     <Compile Include="ElasticSearch\DataLoader.cs" />
     <Compile Include="ElasticSearch\IClientBuilder.cs" />
     <Compile Include="ElasticSearch\IDataLoader.cs" />
     <Compile Include="Model\Build.cs" />
     <Compile Include="Model\BuildsResponse.cs" />
+    <Compile Include="Credentials\IElasticSearchCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
