@@ -21,7 +21,7 @@ namespace TeamCityTracker.WebJob.ApiReader
 
         public async Task<BuildsResponse> GetBuilds()
         {
-            var response = await this.client.GetAsync($"{this.Uri}/builds?locator=count:50").ConfigureAwait(false);
+            var response = await this.client.GetAsync($"{this.Uri}/builds?locator=count:1000").ConfigureAwait(false);
             var content = response.Content;
 
             var result = await content.ReadAsStringAsync().ConfigureAwait(false);

@@ -20,9 +20,8 @@ namespace TeamCityTracker.WebJob
             var dataLoader = Bootstraper.Container.Resolve<IDataLoader>();
 
             var builds = await apiReader.GetBuilds().ConfigureAwait(false);
-            await dataLoader.Load(builds.Build).ConfigureAwait(false);
+            dataLoader.Load(builds.Build);
 
-            Console.WriteLine("Data loaded.");
             Console.ReadLine();
         }
     }
