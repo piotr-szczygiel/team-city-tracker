@@ -20,7 +20,7 @@ namespace TeamCityTracker.WebJob
             builder.RegisterType<ApiReader.ApiReader>().AsImplementedInterfaces();
             builder.RegisterType<AuthorizationProvider.AuthorizationProvider>().AsImplementedInterfaces();
             builder.RegisterType<HttpClientBuilder.HttpClientBuilder>().AsImplementedInterfaces();
-            builder.RegisterType<AppSettings>().AsImplementedInterfaces();
+            builder.RegisterType<AppSettings>().AsImplementedInterfaces().SingleInstance();
 
             Bootstraper.Container = builder.Build();
         }

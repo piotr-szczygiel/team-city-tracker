@@ -1,25 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using Nest;
 using TeamCityTracker.Common.Model;
 
 namespace TeamCityTracker.Common.ElasticSearch
 {
     public class DataLoader : IDataLoader
     {
-        private readonly IClientBuilder clientBuilder;
+        private readonly ElasticClient client;
 
         public DataLoader(IClientBuilder clientBuilder)
         {
-            this.clientBuilder = clientBuilder;
+            this.client = clientBuilder.GetClient();
         }
 
-        public async Task Load(IEnumerable<Build> builds)
+        public void Load(IEnumerable<Build> builds)
         {
-            var client = this.clientBuilder.GetClient();
-            foreach (var build in builds)
-            {
-                var response = await client.IndexDocumentAsync(build).ConfigureAwait(false);
-            }
+            var waitHandle = new CountdownEvent(1);
+            var bulkAll = client.BulkAll(builds, b => b
+                .Index<Build>()
+                .BackOffRetries(2)
+                .BackOffTime("30s")
+                .MaxDegreeOfParallelism(4)
+                .Size(1000)
+            );
+
+            bulkAll.Subscribe(new BulkAllObserver(
+                onNext: (b) => { Console.Write("."); },
+                onError: (e) => throw e,
+                onCompleted: () => waitHandle.Signal()
+            ));
         }
     }
 }
