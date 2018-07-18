@@ -10,7 +10,7 @@ namespace TeamCityTracker.Common
             base.Load(builder);
 
             builder.RegisterType<ClientBuilder>().AsImplementedInterfaces();
-            builder.RegisterType<DataLoader>().AsImplementedInterfaces();
+            builder.RegisterType<ElasticClient>().AsImplementedInterfaces();
         }
     }
 }

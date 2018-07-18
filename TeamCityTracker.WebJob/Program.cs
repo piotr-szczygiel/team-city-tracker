@@ -17,10 +17,10 @@ namespace TeamCityTracker.WebJob
         {
             Bootstraper.Bootstrap();
             var apiReader = Bootstraper.Container.Resolve<IApiReader>();
-            var dataLoader = Bootstraper.Container.Resolve<IDataLoader>();
+            var dataLoader = Bootstraper.Container.Resolve<IElasticClient>();
 
             var builds = await apiReader.GetBuilds().ConfigureAwait(false);
-            dataLoader.Load(builds.Build);
+            dataLoader.LoadData(builds.Build);
 
             Console.ReadLine();
         }
