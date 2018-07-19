@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using TeamCityTracker.WebJob.Model;
 
-namespace TeamCityTracker.WebJob.ApiReader
+namespace TeamCityTracker.WebJob.TeamCityApiReader
 {
-    public interface IApiReader
+    public interface ITeamCityApiReader
     {
         Task<BuildsResponse> GetBuilds();
     }

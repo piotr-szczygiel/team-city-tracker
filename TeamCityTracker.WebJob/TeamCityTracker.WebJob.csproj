@@ -84,7 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiReader\ApiReader.cs" />
+    <Compile Include="TeamCityApiReader\TeamCityApiReader.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="AuthorizationProvider\AuthorizationProvider.cs" />
     <Compile Include="AuthorizationProvider\IAuthorizationProvider.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="ElasticSearch\IBuildRepository.cs" />
     <Compile Include="HttpClientBuilder\HttpClientBuilder.cs" />
     <Compile Include="HttpClientBuilder\IHttpClientBuilder.cs" />
-    <Compile Include="ApiReader\IApiReader.cs" />
+    <Compile Include="TeamCityApiReader\ITeamCityApiReader.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="Model\BuildsResponse.cs" />
     <Compile Include="Program.cs" />

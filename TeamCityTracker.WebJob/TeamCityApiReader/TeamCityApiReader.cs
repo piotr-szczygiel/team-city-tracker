@@ -5,15 +5,15 @@ using TeamCityTracker.Common.Credentials;
 using TeamCityTracker.WebJob.HttpClientBuilder;
 using TeamCityTracker.WebJob.Model;
 
-namespace TeamCityTracker.WebJob.ApiReader
+namespace TeamCityTracker.WebJob.TeamCityApiReader
 {
-    public class ApiReader : IApiReader
+    public class TeamCityApiReader : ITeamCityApiReader
     {
         private readonly HttpClient client;
 
         public string Uri { get; set; }
 
-        public ApiReader(IHttpClientBuilder clientBuilder, ITeamCityCredentials teamCityCredentials)
+        public TeamCityApiReader(IHttpClientBuilder clientBuilder, ITeamCityCredentials teamCityCredentials)
         {
             this.client = clientBuilder.GetClient();
             this.Uri = $"{teamCityCredentials.TeamCityApiUrl}/app/rest";

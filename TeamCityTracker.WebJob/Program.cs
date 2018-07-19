@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Autofac;
-using TeamCityTracker.WebJob.ApiReader;
 using TeamCityTracker.WebJob.ElasticSearch;
+using TeamCityTracker.WebJob.TeamCityApiReader;
 
 namespace TeamCityTracker.WebJob
 {
@@ -16,7 +16,7 @@ namespace TeamCityTracker.WebJob
         private static async Task MainAsync()
         {
             Bootstraper.Bootstrap();
-            var apiReader = Bootstraper.Container.Resolve<IApiReader>();
+            var apiReader = Bootstraper.Container.Resolve<ITeamCityApiReader>();
             var repository = Bootstraper.Container.Resolve<IBuildRepository>();
 
             var builds = await apiReader.GetBuilds().ConfigureAwait(false);

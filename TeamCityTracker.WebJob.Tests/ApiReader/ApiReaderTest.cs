@@ -17,7 +17,7 @@ namespace TeamCityTracker.WebJob.Tests.ApiReader
             teamCityCredentials.TeamCityApiUrl.Returns(testUrl);
 
             // When
-            var apiReader = new WebJob.ApiReader.ApiReader(Substitute.For<IHttpClientBuilder>(), teamCityCredentials);
+            var apiReader = new TeamCityApiReader.TeamCityApiReader(Substitute.For<IHttpClientBuilder>(), teamCityCredentials);
 
             // Then
             StringAssert.StartsWith(testUrl, apiReader.Uri);

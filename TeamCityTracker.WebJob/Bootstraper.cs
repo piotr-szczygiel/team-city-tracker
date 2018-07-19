@@ -18,7 +18,7 @@ namespace TeamCityTracker.WebJob
 
             // register domain related types
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
-            builder.RegisterType<ApiReader.ApiReader>().AsImplementedInterfaces();
+            builder.RegisterType<TeamCityApiReader.TeamCityApiReader>().AsImplementedInterfaces();
             builder.RegisterType<AuthorizationProvider.AuthorizationProvider>().AsImplementedInterfaces();
             builder.RegisterType<HttpClientBuilder.HttpClientBuilder>().AsImplementedInterfaces();
             builder.RegisterType<AppSettings>().AsImplementedInterfaces().SingleInstance();
