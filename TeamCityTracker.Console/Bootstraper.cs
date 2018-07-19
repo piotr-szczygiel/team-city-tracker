@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using TeamCityTracker.Common;
+using TeamCityTracker.Console.ElasticSearch;
 
 namespace TeamCityTracker.Console
 {
@@ -16,7 +17,7 @@ namespace TeamCityTracker.Console
 
             // register domain related types
             builder.RegisterType<AppSettings>().AsImplementedInterfaces().SingleInstance();
-
+            builder.RegisterType<BuildRepository>().AsImplementedInterfaces();
 
             Container = builder.Build();
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using TeamCityTracker.Common.Model;
 
-namespace TeamCityTracker.Common.Model
+namespace TeamCityTracker.WebJob.Model
 {
     public class BuildsResponse
     {

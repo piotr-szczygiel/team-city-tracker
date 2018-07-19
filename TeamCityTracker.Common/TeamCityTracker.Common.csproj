@@ -52,13 +52,8 @@
     <Compile Include="CommonModule.cs" />
     <Compile Include="Credentials\ITeamCityCredentials.cs" />
     <Compile Include="ElasticSearch\ClientBuilder.cs" />
-    <Compile Include="ElasticSearch\ElasticClient.cs" />
     <Compile Include="ElasticSearch\IClientBuilder.cs" />
-    <Compile Include="ElasticSearch\IElasticClient.cs" />
     <Compile Include="Model\Build.cs" />
-    <Compile Include="Model\BuildInfo.cs" />
-    <Compile Include="Model\BuildSearchResponse.cs" />
-    <Compile Include="Model\BuildsResponse.cs" />
     <Compile Include="Credentials\IElasticSearchCredentials.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TeamCityTracker.Common.Credentials;
-using TeamCityTracker.Common.Model;
 using TeamCityTracker.WebJob.HttpClientBuilder;
+using TeamCityTracker.WebJob.Model;
 
 namespace TeamCityTracker.WebJob.ApiReader
 {

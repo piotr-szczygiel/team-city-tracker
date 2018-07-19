@@ -1,7 +1,8 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using ConsoleTables;
 using TeamCityTracker.Common.Model;
-using IElasticClient = TeamCityTracker.Common.ElasticSearch.IElasticClient;
+using TeamCityTracker.Console.ElasticSearch;
 
 namespace TeamCityTracker.Console
 {
@@ -10,9 +11,9 @@ namespace TeamCityTracker.Console
         public static void Main(string[] args)
         {
             Bootstraper.Build();
-            var elasticClient = Bootstraper.Container.Resolve<IElasticClient>();
+            var repository = Bootstraper.Container.Resolve<IBuildRepository>();
 
-            var failingBuilds = elasticClient.GetMostFailingBuilds();
+            var failingBuilds = repository.GetMostFailingBuilds();
             DisplayMostFailingBuilds(failingBuilds);
 
             System.Console.ReadLine();
@@ -23,7 +24,8 @@ namespace TeamCityTracker.Console
             var table = new ConsoleTable("Build name", "Executed", "Success", "Failure", "Fail percentage");
             foreach (var buildInfo in failingBuilds.Builds)
             {
-                table.AddRow(buildInfo.BuildIdentifier, buildInfo.TimesExecuted, buildInfo.TimesSuccessed, buildInfo.TimesFailed, buildInfo.FailurePercentage);
+                table.AddRow(buildInfo.BuildIdentifier, buildInfo.Executed, buildInfo.Succeed, buildInfo.Failed,
+                    Math.Round(buildInfo.FailurePercentage, 2));
             }
 
             table.Write();

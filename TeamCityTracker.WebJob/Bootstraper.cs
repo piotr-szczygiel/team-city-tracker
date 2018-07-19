@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Autofac;
 using TeamCityTracker.Common;
+using TeamCityTracker.WebJob.ElasticSearch;
 
 namespace TeamCityTracker.WebJob
 {
@@ -21,6 +22,7 @@ namespace TeamCityTracker.WebJob
             builder.RegisterType<AuthorizationProvider.AuthorizationProvider>().AsImplementedInterfaces();
             builder.RegisterType<HttpClientBuilder.HttpClientBuilder>().AsImplementedInterfaces();
             builder.RegisterType<AppSettings>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<BuildRepository>().AsImplementedInterfaces();
 
             Container = builder.Build();
         }

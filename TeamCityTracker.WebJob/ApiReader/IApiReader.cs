@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TeamCityTracker.Common.Model;
+using TeamCityTracker.WebJob.Model;
 
 namespace TeamCityTracker.WebJob.ApiReader
 {

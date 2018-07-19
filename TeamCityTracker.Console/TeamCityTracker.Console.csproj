@@ -57,6 +57,10 @@
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
     <Compile Include="Bootstraper.cs" />
+    <Compile Include="ElasticSearch\BuildRepository.cs" />
+    <Compile Include="ElasticSearch\IBuildRepository.cs" />
+    <Compile Include="Model\BuildInfo.cs" />
+    <Compile Include="Model\BuildSearchResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
