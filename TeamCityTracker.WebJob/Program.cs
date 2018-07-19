@@ -21,8 +21,6 @@ namespace TeamCityTracker.WebJob
 
             var builds = await apiReader.GetBuilds().ConfigureAwait(false);
             repository.LoadData(builds.Build);
-
-            Console.ReadLine();
         }
     }
 }
