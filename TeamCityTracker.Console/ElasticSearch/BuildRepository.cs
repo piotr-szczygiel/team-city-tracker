@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using TeamCityTracker.Common.ElasticSearch;
+﻿using TeamCityTracker.Common.ElasticSearch;
 using TeamCityTracker.Common.Model;
+using TeamCityTracker.Console.Model;
 
 namespace TeamCityTracker.Console.ElasticSearch
 {
@@ -40,18 +40,7 @@ namespace TeamCityTracker.Console.ElasticSearch
                 )
             );
 
-            var buildSearchResponse = new BuildSearchResponse()
-            {
-                Builds = searchResponse.Aggregations.Terms("count_build_type").Buckets.Select(item => new BuildInfo()
-                {
-                    BuildIdentifier = item.Key,
-                    Executed = item.DocCount ?? 0,
-                    Failed = item.Filter("failed").DocCount,
-                    Succeed = item.Filter("succeed").DocCount,
-                    FailurePercentage = item.BucketScript("failure_percentage").Value ?? 0
-                })
-            };
-            return buildSearchResponse;
+            return BuildSearchResponse.Parse(searchResponse.Aggregations.Terms("count_build_type").Buckets);
         }
     }
 }

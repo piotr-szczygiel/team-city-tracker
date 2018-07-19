@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TeamCityTracker.Common.Model
+﻿namespace TeamCityTracker.Console.Model
 {
     public class BuildInfo
     {

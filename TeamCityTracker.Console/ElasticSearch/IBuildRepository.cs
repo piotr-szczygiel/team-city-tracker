@@ -1,4 +1,4 @@
-﻿using TeamCityTracker.Common.Model;
+﻿using TeamCityTracker.Console.Model;
 
 namespace TeamCityTracker.Console.ElasticSearch
 {

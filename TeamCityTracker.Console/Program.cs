@@ -1,8 +1,8 @@
 ﻿using System;
 using Autofac;
 using ConsoleTables;
-using TeamCityTracker.Common.Model;
 using TeamCityTracker.Console.ElasticSearch;
+using TeamCityTracker.Console.Model;
 
 namespace TeamCityTracker.Console
 {
