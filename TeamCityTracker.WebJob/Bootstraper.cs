@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Autofac;
 using TeamCityTracker.Common;
+using TeamCityTracker.WebJob.ElasticSearch;
 
 namespace TeamCityTracker.WebJob
 {
@@ -17,12 +18,13 @@ namespace TeamCityTracker.WebJob
 
             // register domain related types
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
-            builder.RegisterType<ApiReader.ApiReader>().AsImplementedInterfaces();
+            builder.RegisterType<TeamCityApiReader.TeamCityApiReader>().AsImplementedInterfaces();
             builder.RegisterType<AuthorizationProvider.AuthorizationProvider>().AsImplementedInterfaces();
             builder.RegisterType<HttpClientBuilder.HttpClientBuilder>().AsImplementedInterfaces();
             builder.RegisterType<AppSettings>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<BuildRepository>().AsImplementedInterfaces();
 
-            Bootstraper.Container = builder.Build();
+            Container = builder.Build();
         }
     }
 }

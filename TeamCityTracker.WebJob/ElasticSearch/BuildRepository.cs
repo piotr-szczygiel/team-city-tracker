@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Threading;
 using Nest;
+using TeamCityTracker.Common.ElasticSearch;
 using TeamCityTracker.Common.Model;
 
-namespace TeamCityTracker.Common.ElasticSearch
+namespace TeamCityTracker.WebJob.ElasticSearch
 {
-    public class DataLoader : IDataLoader
+    public class BuildRepository : IBuildRepository
     {
-        private readonly ElasticClient client;
+        private readonly Nest.ElasticClient client;
 
-        public DataLoader(IClientBuilder clientBuilder)
+        public BuildRepository(IClientBuilder clientBuilder)
         {
             this.client = clientBuilder.GetClient();
         }
 
-        public void Load(IEnumerable<Build> builds)
+        public void LoadData(IEnumerable<Build> builds)
         {
             var waitHandle = new CountdownEvent(1);
             var bulkAll = client.BulkAll(builds, b => b

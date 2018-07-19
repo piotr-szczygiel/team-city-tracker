@@ -16,16 +16,16 @@ namespace TeamCityTracker.WebJob.HttpClientBuilder
 
         public HttpClient GetClient()
         {
-            if (HttpClientBuilder.Client != null)
+            if (Client != null)
             {
-                return HttpClientBuilder.Client;
+                return Client;
             }
 
-            HttpClientBuilder.Client = new HttpClient();
-            HttpClientBuilder.Client.DefaultRequestHeaders.Authorization = this.authorizationProvider.GetAuthenticationHeader();
-            HttpClientBuilder.Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Client = new HttpClient();
+            Client.DefaultRequestHeaders.Authorization = this.authorizationProvider.GetAuthenticationHeader();
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return HttpClientBuilder.Client;
+            return Client;
         }
     }
 }

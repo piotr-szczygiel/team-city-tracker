@@ -2,18 +2,18 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TeamCityTracker.Common.Credentials;
-using TeamCityTracker.Common.Model;
 using TeamCityTracker.WebJob.HttpClientBuilder;
+using TeamCityTracker.WebJob.Model;
 
-namespace TeamCityTracker.WebJob.ApiReader
+namespace TeamCityTracker.WebJob.TeamCityApiReader
 {
-    public class ApiReader : IApiReader
+    public class TeamCityApiReader : ITeamCityApiReader
     {
         private readonly HttpClient client;
 
         public string Uri { get; set; }
 
-        public ApiReader(IHttpClientBuilder clientBuilder, ITeamCityCredentials teamCityCredentials)
+        public TeamCityApiReader(IHttpClientBuilder clientBuilder, ITeamCityCredentials teamCityCredentials)
         {
             this.client = clientBuilder.GetClient();
             this.Uri = $"{teamCityCredentials.TeamCityApiUrl}/app/rest";
@@ -21,7 +21,7 @@ namespace TeamCityTracker.WebJob.ApiReader
 
         public async Task<BuildsResponse> GetBuilds()
         {
-            var response = await this.client.GetAsync($"{this.Uri}/builds?locator=count:1000").ConfigureAwait(false);
+            var response = await this.client.GetAsync($"{this.Uri}/builds?locator=count:100").ConfigureAwait(false);
             var content = response.Content;
 
             var result = await content.ReadAsStringAsync().ConfigureAwait(false);

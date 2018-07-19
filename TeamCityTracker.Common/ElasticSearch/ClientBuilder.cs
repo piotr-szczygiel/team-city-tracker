@@ -14,10 +14,10 @@ namespace TeamCityTracker.Common.ElasticSearch
             this.credentials = credentials;
         }
 
-        public ElasticClient GetClient()
+        public Nest.ElasticClient GetClient()
         {
             var connectionSettings = this.CreateDefaulConnectionSettings();
-            var client = new ElasticClient(connectionSettings);
+            var client = new Nest.ElasticClient(connectionSettings);
 
             return client;
         }
