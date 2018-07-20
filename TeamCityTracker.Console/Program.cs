@@ -1,34 +1,51 @@
-﻿using System;
+﻿using System.Linq;
 using Autofac;
-using ConsoleTables;
-using TeamCityTracker.Console.ElasticSearch;
-using TeamCityTracker.Console.Model;
+using TeamCityTracker.Console.Operation;
+using TeamCityTracker.Console.ProgramOptions;
+using TeamCityTracker.Console.TableRenderer;
 
 namespace TeamCityTracker.Console
 {
     public class Program
     {
+        private static IContainer Container;
+
         public static void Main(string[] args)
         {
             Bootstraper.Build();
-            var repository = Bootstraper.Container.Resolve<IBuildRepository>();
+            Container = Bootstraper.Container;
+            var programOptions = Container.Resolve<IProgramOptions>();
+            var runApp = true;
 
-            var failingBuilds = repository.GetMostFailingBuilds();
-            DisplayMostFailingBuilds(failingBuilds);
+            while (runApp)
+            {
+                System.Console.WriteLine("\nSelect an option:\n");
+                foreach (var programOption in programOptions.GetOptions())
+                {
+                    System.Console.WriteLine($"[{programOption.Abbrev}] {programOption.Label}");
+                }
+                System.Console.WriteLine();
 
-            System.Console.ReadLine();
+                var userChoice = System.Console.ReadLine();
+                var option = programOptions.GetOptions().FirstOrDefault(o => o.Abbrev == userChoice?.ToUpper());
+
+                if (option == null)
+                {
+                    runApp = false;
+                    System.Console.WriteLine("Choosed option doesn't exist. App will close now.");
+                    System.Console.ReadLine();
+                }
+                else
+                {
+                    ExecuteOperation(option.ConsoleOperation);
+                }
+            }
         }
 
-        private static void DisplayMostFailingBuilds(BuildSearchResponse failingBuilds)
+        private static void ExecuteOperation(IOperation operation)
         {
-            var table = new ConsoleTable("Build name", "Executed", "Success", "Failure", "Fail percentage");
-            foreach (var buildInfo in failingBuilds.Builds)
-            {
-                table.AddRow(buildInfo.BuildIdentifier, buildInfo.Executed, buildInfo.Succeed, buildInfo.Failed,
-                    Math.Round(buildInfo.FailurePercentage, 2));
-            }
-
-            table.Write();
+            var tableRenderer = Container.Resolve<ITableRenderer>();
+            tableRenderer.Render(operation.Execute());
         }
     }
 }
